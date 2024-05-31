@@ -27,7 +27,7 @@ public class City {
         this.stadtname = stadtname;
     }
 
-    public double getLatitudKoordinate() {
+    public double getLatitude() {
         return latitudKoordinate;
     }
 
@@ -35,7 +35,7 @@ public class City {
         this.latitudKoordinate = latitudKoordinate;
     }
 
-    public double getLongitudKoordinate() {
+    public double getLongitude() {
         return longitudKoordinate;
     }
 
