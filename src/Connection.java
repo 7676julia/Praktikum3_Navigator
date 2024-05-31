@@ -2,7 +2,8 @@ public class Connection {
     
     City city1;
     City city2;
-    //Konstruktor
+    
+    //Konstruktor (klappt das?)
     public Connection (City city1, City city2) {
        getDistanceInKm(city1, city2);
     }

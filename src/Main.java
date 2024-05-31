@@ -19,5 +19,20 @@ public class Main {
         System.out.println(augsburg.toString());
         System.out.println(regensburg.toString());
         System.out.println(wuerzburg.toString());
+
+        ingolstadt.addConnection(muenchen);
+        ingolstadt.addConnection(nuernberg);
+        ingolstadt.addConnection(regensburg);
+        ingolstadt.addConnection(augsburg);
+        muenchen.addConnection(augsburg);
+        ulm.addConnection(augsburg);
+        stuttgart.addConnection(ulm);
+        stuttgart.addConnection(nuernberg);
+        stuttgart.addConnection(wuerzburg);
+        regensburg.addConnection(muenchen);
+        regensburg.addConnection(nuernberg);
+        nuernberg.addConnection(ulm);
+
+
     }
 }

@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+
 public class City {
+    
     String stadtname; 
     double latitudKoordinate;
     double longitudKoordinate;
+    ArrayList<Connection> connections = new ArrayList<Connection>();
 
 
     //Konstruktor
@@ -11,6 +15,16 @@ public class City {
         this.longitudKoordinate = longitudKoordinate;
     }
     
+    public void addConnection (City cityToConnect){
+        if (this.stadtname == cityToConnect.stadtname){
+           System.out.println("Eine Stadt kann nicht mit sich selbst verknüpft werden");
+        }
+        else {
+            connections.add(new Connection(this, cityToConnect));
+        }
+    }
+
+
     //to String Methode
     @Override
     public String toString() {
