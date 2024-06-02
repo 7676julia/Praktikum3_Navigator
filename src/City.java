@@ -20,12 +20,16 @@ public class City {
            System.out.println("Eine Stadt kann nicht mit sich selbst verknüpft werden");
         }
         else {
+            //debug
+            System.out.println("Verbindung zwischen " + this.stadtname + " und " + cityToConnect.stadtname + " hinzugefügt");
             connections.add(new Connection(this, cityToConnect));
         }
     }
 
-    public String getRouteToCity (City destination){
-        return null; 
+    public Route getRouteToCity (City destination){
+        //debug
+        System.out.println("getRouteToCity");
+        return Route.getShortestRoute(this, destination); 
     }
 
     //to String Methode
