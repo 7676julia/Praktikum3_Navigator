@@ -24,6 +24,9 @@ public class City {
         }
     }
 
+    public String getRouteToCity (City destination){
+        return null; 
+    }
 
     //to String Methode
     @Override
@@ -55,6 +58,10 @@ public class City {
 
     public void setLongitudKoordinate(int longitudKoordinate) {
         this.longitudKoordinate = longitudKoordinate;
+    }
+
+    public ArrayList<Connection> getConnections() {
+        return connections;
     }
 
     
