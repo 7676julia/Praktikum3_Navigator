@@ -16,9 +16,13 @@ public class Route {
         this.totalDistance = totalDistance;
     }
 
+    
     public void appendCity(City city, Connection connection) {
         if (connection != null){
-            totalDistance += connection.getDistanceInKm(routeCities.getLast(), city);
+            totalDistance += connection.getDistanceInKm(routeCities.get(routeCities.size() - 1), city);
+        }
+        if (city == null){
+            System.out.println("city ist null in append city");
         }
         System.out.println("in appendCity");
         routeCities.add(city);
@@ -36,9 +40,7 @@ public class Route {
 
 
     private static void addAllRoutes (ArrayList<Route> allPossibleRoutes, Route currentRoute, City currentCity, City destination, Connection connection){
-         //debug
-         System.out.println("in addAllRoutes oben");
-        //city und connection hinzufügen
+         //city und connection hinzufügen
         currentRoute.appendCity(currentCity, connection);
         if (currentCity.equals(destination)){
             allPossibleRoutes.add(currentRoute);
@@ -50,19 +52,19 @@ public class Route {
         ArrayList<Connection> possibleNextCities = new ArrayList<>(currentCity.getConnections()); 
             for (int i=0; i< possibleNextCities.size(); i++){
                 //debug
-                System.out.println("in addAllRoutes 2 for schleife");
+                System.out.println(possibleNextCities.get(i));
                 //jeweils andere city finden und überprüfen ob route schon in der stadt war
-                City otherCity = possibleNextCities.get(i).getOtherCity(currentCity);
+                Connection ati = possibleNextCities.get(i);
+                City otherCity = ati.getOtherCity(currentCity);
                 if (currentRoute.containsCity(otherCity)){
                     //eigene Ergänzung
                     System.out.println("Route enthält Stadt bereits");
                     continue;
                 }
-                //debug
-                System.out.println("in addAllRoutes3");
                 Route continuedRoute = new Route(currentRoute.routeCities, currentRoute.totalDistance);
                 //rekursiver Aufruf
-                addAllRoutes(allPossibleRoutes, continuedRoute, connection.getOtherCity(currentCity), destination, possibleNextCities.get(i));
+                System.out.println("in addAllRoutes4");
+                addAllRoutes(allPossibleRoutes, continuedRoute, ati.getOtherCity(currentCity), destination, possibleNextCities.get(i));
                 
             }
     
@@ -72,9 +74,9 @@ public class Route {
     public static Route getShortestRoute(City origin, City destination){
         //leere Route anlegen und über addAllRoutes alle möglichen Routen in arraylist hinzufügen
         Route neueRoute = new Route(); 
-        ArrayList<Route> allPossibleRoutes = new ArrayList(); 
+        ArrayList<Route> allPossibleRoutes = new ArrayList<Route>(); 
         addAllRoutes(allPossibleRoutes, neueRoute,origin, destination,null);
-        ArrayList<Route> routesOrderedByDistance = new ArrayList(); 
+        ArrayList<Route> routesOrderedByDistance = new ArrayList<Route>(); 
         //Algorithmus der alle Routen aus allPossibleRoutes in routesOrderedByDistance sortiert
         for (int i = 0; i<allPossibleRoutes.size(); i++){
             //Hilfsvariable allpossibleRoutes

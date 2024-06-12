@@ -16,7 +16,7 @@ public class City {
     }
     
     public void addConnection (City cityToConnect){
-        if (this.stadtname == cityToConnect.stadtname){
+        if (this.stadtname.equals(cityToConnect.stadtname)){
            System.out.println("Eine Stadt kann nicht mit sich selbst verknüpft werden");
         }
         else {
