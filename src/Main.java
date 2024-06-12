@@ -1,7 +1,6 @@
 public class Main {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
-
+        
         City ingolstadt = new City("Ingolstadt", 48.764001378240835, 11.42625484665524);
         City muenchen = new City ("Muenchen", 48.13891855227781, 11.577266137987793);
         City nuernberg = new City ("Nuernberg", 49.45061728516064, 11.076253152617218);
@@ -33,7 +32,7 @@ public class Main {
         regensburg.addConnection(nuernberg);
         nuernberg.addConnection(ulm);
 
-        System.out.println("Beste Route: " + muenchen.getRouteToCity(nuernberg).toString());
+        System.out.println("Beste Route: " + stuttgart.getRouteToCity(regensburg).toString());
 
 
     }

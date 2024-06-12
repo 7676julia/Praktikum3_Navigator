@@ -23,6 +23,7 @@ public class City {
             //debug
             System.out.println("Verbindung zwischen " + this.stadtname + " und " + cityToConnect.stadtname + " hinzugefügt");
             connections.add(new Connection(this, cityToConnect));
+            connections.add(new Connection(cityToConnect, this));
         }
     }
 

@@ -2,13 +2,13 @@ public class Connection {
     
     City city1;
     City city2;
-    double distanceInKm;
+    private final double distanceInKm;
     
     //Konstruktor (klappt das?)
     public Connection (City city1, City city2) {
         this.city1 = city1;
         this.city2 = city2;
-        distanceInKm = getDistanceInKm(city1, city2);
+        this.distanceInKm = getDistanceInKm(city1, city2);
     }
 
     double getDistanceInKm ( City stadt1 , City stadt2 ) {
