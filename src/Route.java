@@ -11,9 +11,9 @@ public class Route {
     }
 
     //copy Konstruktor
-    private Route (ArrayList<City> routeCities, int totalDistance) {
-        this.routeCities = new ArrayList<City>(routeCities);
-        this.totalDistance = totalDistance;
+    private Route (Route route){ 
+        this.routeCities = new ArrayList<City>(route.routeCities);
+        this.totalDistance = route.totalDistance;
     }
 
     
@@ -24,7 +24,6 @@ public class Route {
         if (city == null){
             System.out.println("city ist null in append city");
         }
-        System.out.println("in appendCity");
         routeCities.add(city);
     }
 
@@ -42,40 +41,47 @@ public class Route {
     private static void addAllRoutes (ArrayList<Route> allPossibleRoutes, Route currentRoute, City currentCity, City destination, Connection connection){
          //city und connection hinzufügen
         currentRoute.appendCity(currentCity, connection);
+
         if (currentCity.equals(destination)){
             allPossibleRoutes.add(currentRoute);
             //beendet void methoden
             return; 
         }
-        //debug
-        System.out.println("in addAllRoutes 2");
-        ArrayList<Connection> possibleNextCities = new ArrayList<>(currentCity.getConnections()); 
-            for (int i=0; i< possibleNextCities.size(); i++){
-                //debug
-                System.out.println(possibleNextCities.get(i));
-                //jeweils andere city finden und überprüfen ob route schon in der stadt war
-                Connection ati = possibleNextCities.get(i);
-                City otherCity = ati.getOtherCity(currentCity);
-                if (currentRoute.containsCity(otherCity)){
-                    //eigene Ergänzung
-                    System.out.println("Route enthält Stadt bereits");
-                    continue;
-                }
-                Route continuedRoute = new Route(currentRoute.routeCities, currentRoute.totalDistance);
+        
+        ArrayList<Connection> possibleNextCities = new ArrayList<Connection>(currentCity.getConnections()); 
+            
+        //for (int i=0; i< possibleNextCities.size(); i++){
+        for (Connection ati : possibleNextCities){
+            //jeweils andere city finden und überprüfen ob route schon in der stadt war
+            //Connection ati = possibleNextCities.get(i);
+            City otherCity = ati.getOtherCity(currentCity);
+               
+            if (!currentRoute.containsCity(otherCity)){
+                //mit copy Konstruktor in neue Route duplizierne
+                Route continuedRoute = new Route(currentRoute);
+                System.out.println(continuedRoute.toString());
                 //rekursiver Aufruf
-                System.out.println("in addAllRoutes4");
-                addAllRoutes(allPossibleRoutes, continuedRoute, ati.getOtherCity(currentCity), destination, possibleNextCities.get(i));
-                
+                addAllRoutes(allPossibleRoutes, continuedRoute, otherCity, destination, ati);
             }
+                
+        }
     
     }
 
     //public static getShortestRoute
     public static Route getShortestRoute(City origin, City destination){
+       
         //leere Route anlegen und über addAllRoutes alle möglichen Routen in arraylist hinzufügen
         Route neueRoute = new Route(); 
         ArrayList<Route> allPossibleRoutes = new ArrayList<Route>(); 
         addAllRoutes(allPossibleRoutes, neueRoute,origin, destination,null);
+        
+        // Prüfen, ob keine Routen gefunden wurden
+        if (allPossibleRoutes.isEmpty()) {
+            System.out.println("Keine Route gefunden");
+            return null;
+        }
+        
         ArrayList<Route> routesOrderedByDistance = new ArrayList<Route>(); 
         //Algorithmus der alle Routen aus allPossibleRoutes in routesOrderedByDistance sortiert
         for (int i = 0; i<allPossibleRoutes.size(); i++){
@@ -92,10 +98,19 @@ public class Route {
             routesOrderedByDistance.add(j, tempi);
         }
     for (int i = 0; i<routesOrderedByDistance.size(); i++){
+        System.out.println("in for schleife");
         System.out.println(routesOrderedByDistance.get(i));
     }
-    return routesOrderedByDistance.get(0);
+    
+    if (routesOrderedByDistance.isEmpty()) {
+        System.out.println("Keine Route gefundenunten");
+        return null;
+    } else {
+        return routesOrderedByDistance.get(0);
+    }
+}
+
 }
    
 
-}
+

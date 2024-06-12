@@ -27,8 +27,7 @@ public class City {
     }
 
     public Route getRouteToCity (City destination){
-        //debug
-        System.out.println("getRouteToCity");
+        
         return Route.getShortestRoute(this, destination); 
     }
 

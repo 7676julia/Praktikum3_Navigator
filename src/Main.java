@@ -33,7 +33,7 @@ public class Main {
         regensburg.addConnection(nuernberg);
         nuernberg.addConnection(ulm);
 
-        System.out.println("Beste Route: " + stuttgart.getRouteToCity(regensburg).toString());
+        System.out.println("Beste Route: " + muenchen.getRouteToCity(nuernberg).toString());
 
 
     }

@@ -8,7 +8,7 @@ public class Connection {
     public Connection (City city1, City city2) {
         this.city1 = city1;
         this.city2 = city2;
-        getDistanceInKm(city1, city2);
+        distanceInKm = getDistanceInKm(city1, city2);
     }
 
     double getDistanceInKm ( City stadt1 , City stadt2 ) {
@@ -37,7 +37,7 @@ public class Connection {
             return degrees * Math.PI / 180;
         }
 
-        City getOtherCity (City city) {
+        public City getOtherCity (City city) {
             //Wenn die Stadt1 die gleiche Stadt ist wie die übergebene Stadt, dann gib Stadt2 zurück
             if (city.equals(city1)) {
                 return city2;
