@@ -20,10 +20,8 @@ public class City {
            System.out.println("Eine Stadt kann nicht mit sich selbst verknüpft werden");
         }
         else {
-            //debug
-            System.out.println("Verbindung zwischen " + this.stadtname + " und " + cityToConnect.stadtname + " hinzugefügt");
             connections.add(new Connection(this, cityToConnect));
-            connections.add(new Connection(cityToConnect, this));
+            cityToConnect.connections.add(new Connection(cityToConnect, this));
         }
     }
 
@@ -35,7 +33,7 @@ public class City {
     //to String Methode
     @Override
     public String toString() {
-        return stadtname + " " + latitudKoordinate + " " + longitudKoordinate;
+        return stadtname; 
     }
 
     

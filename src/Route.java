@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Route {
 
     ArrayList<City> routeCities;
-    double totalDistance;
+    int totalDistance;
 
     // Default Konstruktor
     private Route() {
@@ -16,16 +16,16 @@ public class Route {
         this.routeCities = new ArrayList<City>(route.routeCities);
         this.totalDistance = route.totalDistance;
     }
-
+    
     public void appendCity(City city, Connection connection) {
-        if (connection != null && !routeCities.isEmpty()) {
-            totalDistance += connection.getDistanceInKm(routeCities.get(routeCities.size() - 2), city);
-        }
         if (city == null) {
             System.out.println("City ist null in appendCity");
-        } else {
-            routeCities.add(city);
+            return;
         }
+        if (connection != null && !routeCities.isEmpty()) {
+            totalDistance += connection.getDistanceInKm(routeCities.get(routeCities.size() - 1), city);
+        }
+        routeCities.add(city);
     }
 
     public boolean containsCity(City city) {
@@ -34,8 +34,16 @@ public class Route {
 
     @Override
     public String toString() {
-        return routeCities.toString() + " Distanz: " + totalDistance;
+    StringBuilder sb = new StringBuilder();
+    for (City city : routeCities) {
+        sb.append(city.stadtname).append(" - ");
     }
+    // Remove the trailing comma and space
+    if (sb.length() > 0) {
+        sb.setLength(sb.length() - 2);
+    }
+    return sb.toString() + " Distanz: " + totalDistance + "km";
+}
 
     private static void addAllRoutes(ArrayList<Route> allPossibleRoutes, Route currentRoute, City currentCity, City destination, Connection connection) {
         currentRoute.appendCity(currentCity, connection);
@@ -43,7 +51,6 @@ public class Route {
         if (currentCity.equals(destination)) {
             Route finalRoute = new Route(currentRoute);
             allPossibleRoutes.add(finalRoute);
-            System.out.println("Route gefunden: " + finalRoute);
             return;
         }
 
@@ -54,10 +61,10 @@ public class Route {
 
             if (!currentRoute.containsCity(otherCity)) {
                 Route continuedRoute = new Route(currentRoute);
-                System.out.println("Aktuelle Route: " + continuedRoute + " mit möglicher nächster Stadt: " + otherCity);
+                //System.out.println("Aktuelle Route: " + continuedRoute + " mit möglicher nächster Stadt: " + otherCity);
                 addAllRoutes(allPossibleRoutes, continuedRoute, otherCity, destination, ati);
             } else {
-                System.out.println("Stadt " + otherCity + " bereits besucht, überspringen.");
+                //System.out.println("Stadt " + otherCity + " bereits besucht, überspringen.");
             }
         }
     }
@@ -66,11 +73,6 @@ public class Route {
         Route neueRoute = new Route();
         ArrayList<Route> allPossibleRoutes = new ArrayList<Route>();
         addAllRoutes(allPossibleRoutes, neueRoute, origin, destination, null);
-
-        System.out.println("Alle möglichen Routen:");
-        for (Route route : allPossibleRoutes) {
-            System.out.println(route);
-        }
 
         ArrayList<Route> routesOrderedByDistance = new ArrayList<Route>();
         for (Route tempi : allPossibleRoutes) {
@@ -84,8 +86,9 @@ public class Route {
             routesOrderedByDistance.add(j, tempi);
         }
 
+        System.out.println("Sortiert nach Distanz");
         for (Route route : routesOrderedByDistance) {
-            System.out.println("In for Schleife");
+            
             System.out.println(route);
         }
 
