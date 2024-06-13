@@ -86,7 +86,8 @@ public class Route {
             routesOrderedByDistance.add(j, tempi);
         }
 
-        System.out.println("Sortiert nach Distanz");
+        System.out.println("Sortiert nach Distanz:");
+        
         for (Route route : routesOrderedByDistance) {
             
             System.out.println(route);

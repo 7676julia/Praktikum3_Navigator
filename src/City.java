@@ -33,7 +33,7 @@ public class City {
     //to String Methode
     @Override
     public String toString() {
-        return stadtname; 
+        return stadtname + " " + latitudKoordinate + ", " + longitudKoordinate;
     }
 
     
