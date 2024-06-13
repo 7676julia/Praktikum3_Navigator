@@ -4,7 +4,7 @@ public class Connection {
     City city2;
     private final double distanceInKm;
     
-    //Konstruktor (klappt das?)
+    //Konstruktor
     public Connection (City city1, City city2) {
         this.city1 = city1;
         this.city2 = city2;

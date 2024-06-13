@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Route {
 
     ArrayList<City> routeCities;
-    int totalDistance;
+    double totalDistance;
 
     // Default Konstruktor
     private Route() {
@@ -24,6 +24,7 @@ public class Route {
         }
         if (connection != null && !routeCities.isEmpty()) {
             totalDistance += connection.getDistanceInKm(routeCities.get(routeCities.size() - 1), city);
+            totalDistance = (int) Math.round(totalDistance);
         }
         routeCities.add(city);
     }
@@ -36,9 +37,10 @@ public class Route {
     public String toString() {
     StringBuilder sb = new StringBuilder();
     for (City city : routeCities) {
+        // Stadtname und Trennzeichen anhängen
         sb.append(city.stadtname).append(" - ");
     }
-    // Remove the trailing comma and space
+    // Komma und Leerzeichen am Ende entfernen
     if (sb.length() > 0) {
         sb.setLength(sb.length() - 2);
     }
@@ -89,10 +91,9 @@ public class Route {
         System.out.println("Sortiert nach Distanz:");
         
         for (Route route : routesOrderedByDistance) {
-            
             System.out.println(route);
         }
-
+        //test
         if (routesOrderedByDistance.isEmpty()) {
             System.out.println("Keine Route gefunden");
             return null;
