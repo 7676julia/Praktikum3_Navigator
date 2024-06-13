@@ -25,6 +25,7 @@ public class Route {
         if (connection != null && !routeCities.isEmpty()) {
             totalDistance += connection.getDistanceInKm(routeCities.get(routeCities.size() - 1), city);
             totalDistance = (int) Math.round(totalDistance);
+           
         }
         routeCities.add(city);
     }
